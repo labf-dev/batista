@@ -557,8 +557,8 @@ function sanitizeFilename(nomeArquivo, substituto = '-') {
     let nomeLimpo = nomeArquivo.replace(regexProibidos, substituto).trim();
     
     if (nomeOriginal !== nomeLimpo) {
-        console.warn("[FLAG] Violação: Contém caracteres proibidos (Windows/Linux) ou de controle.");
-        erros += 'Contém caracteres proibidos (Windows/Linux) ou de controle. '
+        console.warn("[FLAG] Violação: Continha caracter proibido (Windows/Linux) ou de controle.");
+        erros += 'Continha caracter proibido (para o Windows/Linux) ou de controle. '
     }
     
     // 2. Garante que o nome do arquivo não comece com ponto '.'
@@ -575,9 +575,9 @@ function sanitizeFilename(nomeArquivo, substituto = '-') {
     
     // Se o nome ficou vazio após remover os pontos, define um padrão
     if (!nomeLimpo) {
-        console.warn("[FLAG] Violação: O nome do arquivo ficou vazio após a limpeza.");
-        erros += 'Após remoção de conteúdo não aceito o nome ficou vazio. '
-        nomeLimpo = 'arquivo-com-nome-valido';
+        console.warn("[FLAG] Violação: O nome do arquivo ficou vazio após a remoção de conteúdo não permitido para o nome.");
+        erros += 'Após remoção de conteúdo não permitido, o nome gerado ficou vazio. '
+        nomeLimpo = 'coloque-arquivo-com-nome-valido';
     }
     
     // 3. Extrai apenas o nome base antes do primeiro ponto
@@ -588,9 +588,9 @@ function sanitizeFilename(nomeArquivo, substituto = '-') {
     
     // 5. Se o nome base for reservado, adiciona um prefixo de segurança
     if (nomesReservadosWindows.test(nomeBase)) {
-        console.warn(`[FLAG] Violação: "${nomeBase}" é um nome reservado do sistema Windows.`);
+        console.warn("[FLAG] Violação: " + nomeBase +" é um nome reservado do sistema Windows.");
         erros += "Atenção: '" + nomeBase  + "' é um nome reservado do sistema Windows."
-        nomeLimpo = `arquivo-${nomeLimpo}`;
+        nomeLimpo = "arquivo-" + nomeLimpo
     }
     
     erros = erros.trim()
